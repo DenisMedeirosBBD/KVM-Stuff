@@ -45,7 +45,7 @@ virsh snapshot-revert $VM $SNAPSHOT
 
 ```
 
-### Revert snapshot and reset grop of VMs
+### Revert snapshots and reset group of VMs
 
 ```
 VMS=(
