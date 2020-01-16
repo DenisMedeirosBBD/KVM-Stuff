@@ -7,7 +7,8 @@ For example, if you just created a VM called `test-posgresql`, then you can conn
 Example of a SSH connection:
 
 ```
-ssh test-posgresql
+ssh test-posgresql 
+ssh test-postgresql.mynet
 ```
 
 ## Step 1
