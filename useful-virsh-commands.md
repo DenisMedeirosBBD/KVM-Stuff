@@ -27,6 +27,12 @@ virsh reset <vm-name>
 virsh snapshot-list <vm-name> --name
 ```
 
+### Create a snapshot of a VM
+
+```
+virsh snapshot-create-as --domain <vm-name> --name <snapshot-name>
+```
+
 ### Revert a snapshot of a VM
 
 
@@ -36,11 +42,11 @@ virsh snapshot-revert <vm-name> <snapshot-name>
 
 ## Complex examples (combining commands/ scripts)
 
-### Revert the last snapshot of a VM
+### Revert to the first snapshot of a VM
 
 ```
 VM='test-postgresql'
-SNAPSHOT=$(virsh snapshot-list $VM --name)
+SNAPSHOT=$(virsh snapshot-list $VM --name | head -1)
 virsh snapshot-revert $VM $SNAPSHOT
 
 ```
