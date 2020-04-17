@@ -68,3 +68,37 @@ for vm in "${VMS[@]}"; do
   virsh reset $vm
 done
 ```
+
+### Another version of restoring snapshot and restart VMs
+
+```
+#/bin/bash
+
+SNAPSHOT="before-core"
+
+VMS=(
+  "test-rhel7" 
+  "test-rhel8" 
+  "test-centos7" 
+  "test-centos8"
+)
+
+
+for vm in "${VMS[@]}"; do
+  echo "[-] Reverting snapshot \"$SNAPSHOT\" of VM \"$vm\"..."
+  virsh snapshot-revert $vm $SNAPSHOT > /dev/null 2>&1 &
+done
+
+for vm in "${VMS[@]}"; do
+  echo "[+] Restarting VM \"$vm\"..."
+  virsh reset $vm > /dev/null 2>&1
+done
+
+# Restore all VMs in parallel.
+# parallel --jobs ${#VMS[@]} virsh snapshot-revert {} $SNAPSHOT ::: ${VMS[@]}
+
+# Restart all VMs in parallel.
+# parallel --jobs ${#VMS[@]} virsh reset {} ::: ${VMS[@]}
+
+exit 0
+```
